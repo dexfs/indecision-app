@@ -1,38 +1,48 @@
 // JSX - Javascript XML
 var app = {
-  title: 'Indecision App',
-  subtitle: 'Learning Reactjs again',
-  options: ['One', 'Two']
-}
-var template = (
-  <div>
-    <h1>{app.title}</h1>  
-    {app.subtitle && <p>{app.subtitle}</p>}
-    <p>{app.options.length > 0 ? 'Here are your options' : 'No opions' }</p>
-    <ol>
-      <li>Item one</li>
-      <li>Item two</li>
-    </ol>
-  </div>
-)
-var user = {
-  name: 'André Santos',
-  age: 36,
-  location: 'Aracaju/SE'
-}
-function getLocation(location) {
-  if (location) {
-    return <p>Location: {location}</p>
-  }
-}
-var templateTwo = (
-    <div>
-      <h1>{user.name ? user.name : 'Anonymous'}</h1>
-    {(user.age && user.age >= 18) && <p>Age:{user.age}</p>}
-      {getLocation(user.location)}
-    </div>
-  )
+	title: 'Indecision App',
+	subtitle: 'Learning Reactjs again',
+	options: ['One', 'Two'],
+};
+const template = (
+	<div>
+		<h1>{app.title}</h1>
+		{app.subtitle && <p>{app.subtitle}</p>}
+		<p>{app.options.length > 0 ? 'Here are your options' : 'No opions'}</p>
+		<ol>
+			<li>Item one</li>
+			<li>Item two</li>
+		</ol>
+	</div>
+);
+let count = 0;
+const addOne = () => {
+	count++;
+	renderCounterApp();
+};
 
-var appRoot = document.getElementById('app');
+const minusOne = () => {
+	count--;
+	renderCounterApp();
+};
 
-ReactDOM.render(template, appRoot);
+const reset = () => {
+	count = 0;
+	renderCounterApp();
+};
+
+const appRoot = document.getElementById('app');
+
+const renderCounterApp = () => {
+	const templateTwo = (
+		<div>
+			<h1>Count {count}</h1>
+			<button onClick={addOne}>+1</button>
+			<button onClick={minusOne}>-1</button>
+			<button onClick={reset}>reset</button>
+		</div>
+	);
+	ReactDOM.render(templateTwo, appRoot);
+};
+
+renderCounterApp();

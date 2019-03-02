@@ -4,7 +4,7 @@
 var app = {
 	title: 'Indecision App',
 	subtitle: 'Learning Reactjs again',
-	options: ['One', 'Two']
+	options: []
 };
 var onFormSubmit = function onFormSubmit(e) {
 	e.preventDefault();
@@ -21,6 +21,12 @@ var onFormSubmit = function onFormSubmit(e) {
 var onRemoveAll = function onRemoveAll() {
 	app.options = [];
 	render();
+};
+
+var onMakeDecision = function onMakeDecision() {
+	var randomNum = Math.floor(Math.random() * app.options.length);
+	var option = app.options[randomNum];
+	alert(option);
 };
 
 var appRoot = document.getElementById('app');
@@ -44,7 +50,11 @@ var render = function render() {
 			null,
 			app.options.length > 0 ? 'Here are your options' : 'No opions'
 		),
-		app.options.length,
+		React.createElement(
+			'button',
+			{ disabled: app.options.length === 0, onClick: onMakeDecision },
+			'What should I do?'
+		),
 		React.createElement(
 			'button',
 			{ onClick: onRemoveAll },
@@ -53,16 +63,13 @@ var render = function render() {
 		React.createElement(
 			'ol',
 			null,
-			React.createElement(
-				'li',
-				null,
-				'Item one'
-			),
-			React.createElement(
-				'li',
-				null,
-				'Item two'
-			)
+			app.options.map(function (option) {
+				return React.createElement(
+					'li',
+					{ key: option },
+					option
+				);
+			})
 		),
 		React.createElement(
 			'form',
